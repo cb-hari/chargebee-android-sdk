@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Cb-sdk</string>
+    <string name="app_name">Chargebee-android-sdk</string>
     <string name="test">Hello Oneplus</string>
 </resources>
