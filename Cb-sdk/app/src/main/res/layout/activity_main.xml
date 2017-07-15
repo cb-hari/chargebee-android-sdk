@@ -7,13 +7,34 @@
     android:layout_height="match_parent"
     tools:context="com.chargebee.android.cb_sdk.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
+        android:orientation="vertical"
+        android:layout_margin="50dp">
+        <Button
+            android:id="@+id/launch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="LAUNCH - $0 / mo"/>
+        <Button
+            android:id="@+id/standard"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="STANDARD - $99 / mo"/>
+        <Button
+            android:id="@+id/pro"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="PRO - $199 / mo"/>
+        <Button
+            android:id="@+id/enterprise"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="ENTERPRISE - $599 / mo"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
