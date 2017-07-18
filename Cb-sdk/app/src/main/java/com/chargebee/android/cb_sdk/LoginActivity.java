@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
-
+//        ChargebeeUtil.createSubscription(email);
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
