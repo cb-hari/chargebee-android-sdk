@@ -17,5 +17,7 @@
         <item name="colorAccent">@android:color/white</item>
         <item name="colorControlNormal">@android:color/white</item>
         <item name="colorControlActivated">@android:color/white</item>
+        <item name="android:textColorHighlight">@android:color/white</item>
+        <item name="android:textColorLink">@android:color/white</item>
     </style>
 </resources>

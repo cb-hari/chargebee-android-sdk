@@ -43,6 +43,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
+                setResult(RESULT_OK, null);
                 finish();
             }
         });
@@ -70,11 +71,11 @@ public class SignupActivity extends AppCompatActivity {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-//                        onSignupSuccess();
-                         onSignupFailed();
+                        onSignupSuccess();
+//                         onSignupFailed();
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 2000);
     }
 
     public void onSignupSuccess() {
@@ -84,7 +85,6 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
         _signupButton.setEnabled(true);
     }
 
@@ -95,26 +95,17 @@ public class SignupActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
-            valid = false;
-        } else {
-            _nameText.setError(null);
-        }
-
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+            Toast.makeText(getBaseContext(), "Invalid email", Toast.LENGTH_LONG).show();
             valid = false;
-        } else {
-            _emailText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
-            valid = false;
-        } else {
-            _passwordText.setError(null);
-        }
+//        if (password.isEmpty() || password.length() < 2) {
+//            _passwordText.setError("min 2 char");
+//            valid = false;
+//        } else {
+//
+//        }
 
         return valid;
     }

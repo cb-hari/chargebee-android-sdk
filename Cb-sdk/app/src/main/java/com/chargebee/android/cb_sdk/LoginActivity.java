@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final int REQUEST_SIGNUP = 0;
+    private static final int CHOOSE_PLAN = 0;
 
     @InjectView(R.id.input_email)
     EditText _emailText;
@@ -44,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
+                Intent intent = new Intent(getApplicationContext(), ChoosePlan.class);
+                startActivityForResult(intent, CHOOSE_PLAN);
             }
         });
     }
@@ -81,12 +81,12 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
+        if (requestCode == CHOOSE_PLAN) {
             if (resultCode == RESULT_OK) {
 
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
-                this.finish();
+                Toast.makeText(getApplicationContext(), "Signup success", Toast.LENGTH_SHORT).show();
             }
         }
     }
