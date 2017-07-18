@@ -22,14 +22,15 @@ public class SignupActivity extends AppCompatActivity {
     @InjectView(R.id.link_login)
     TextView _loginLink;
 
-    String plan = null;
+    String businessType = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.inject(this);
-        plan = getIntent().getStringExtra("plan");
+        businessType = getIntent().getStringExtra("business_type");
+        Toast.makeText(getApplicationContext(),businessType,Toast.LENGTH_SHORT).show();
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

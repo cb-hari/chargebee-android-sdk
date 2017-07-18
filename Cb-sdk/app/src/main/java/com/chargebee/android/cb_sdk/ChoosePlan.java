@@ -6,20 +6,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class ChoosePlan extends AppCompatActivity {
-    @InjectView(R.id.launch)
-    Button launch;
-    @InjectView(R.id.standard)
-    Button std;
-    @InjectView(R.id.pro)
-    Button pro;
-    @InjectView(R.id.enterprise)
-    Button ent;
+    @InjectView(R.id.goods)
+    LinearLayout goods;
+    @InjectView(R.id.saas)
+    LinearLayout saas;
+    @InjectView(R.id.services)
+    LinearLayout services;
 
     private static final int REQUEST_SIGNUP = 0;
 
@@ -28,18 +27,17 @@ public class ChoosePlan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_plan);
         ButterKnife.inject(this);
-        launch.setOnClickListener(getOnClickListener("launch"));
-        std.setOnClickListener(getOnClickListener("std"));
-        pro.setOnClickListener(getOnClickListener("pro"));
-        ent.setOnClickListener(getOnClickListener("ent"));
+        goods.setOnClickListener(getOnClickListener("Physical Goods"));
+        saas.setOnClickListener(getOnClickListener("Saas"));
+        services.setOnClickListener(getOnClickListener("Services"));
     }
 
-    private OnClickListener getOnClickListener(final String plan) {
+    private OnClickListener getOnClickListener(final String businessType) {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), SignupActivity.class);
-                i.putExtra("plan", plan);
+                i.putExtra("business_type", businessType);
                 startActivityForResult(i, REQUEST_SIGNUP);
             }
         };
