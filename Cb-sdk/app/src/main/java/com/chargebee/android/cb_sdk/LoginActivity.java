@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), ChoosePlan.class);
                 startActivityForResult(intent, CHOOSE_PLAN);
             }
@@ -56,10 +55,9 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         _loginButton.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme);
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
+        progressDialog.setMessage("Logging in...");
         progressDialog.show();
 
         String email = _emailText.getText().toString();
@@ -75,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                         // onLoginFailed();
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 2000);
 
     }
 
@@ -98,35 +96,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
+        Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_LONG).show();
         _loginButton.setEnabled(true);
-        finish();
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
         _loginButton.setEnabled(true);
     }
 
     public boolean validate() {
-        boolean valid = true;
-
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
-
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
-            valid = false;
-        } else {
-            _emailText.setError(null);
+            Toast.makeText(getApplicationContext(), "Enter valid email address", Toast.LENGTH_LONG).show();
+            return false;
         }
-
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
-            valid = false;
-        } else {
-            _passwordText.setError(null);
+        if (password.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_LONG).show();
+            return false;
         }
-
-        return valid;
+        return true;
     }
 }

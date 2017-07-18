@@ -13,8 +13,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class SignupActivity extends AppCompatActivity {
-    @InjectView(R.id.input_name)
-    EditText _nameText;
     @InjectView(R.id.input_email)
     EditText _emailText;
     @InjectView(R.id.input_password)
@@ -55,12 +53,10 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
         _signupButton.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
-                R.style.AppTheme);
+        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
-        String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
@@ -79,9 +75,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupSuccess() {
+        Toast.makeText(getBaseContext(), "Account created", Toast.LENGTH_LONG).show();
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
-        finish();
+//        finish();
     }
 
     public void onSignupFailed() {
@@ -89,24 +86,13 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public boolean validate() {
-        boolean valid = true;
-
-        String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(getBaseContext(), "Invalid email", Toast.LENGTH_LONG).show();
-            valid = false;
+            return false;
         }
-
-//        if (password.isEmpty() || password.length() < 2) {
-//            _passwordText.setError("min 2 char");
-//            valid = false;
-//        } else {
-//
-//        }
-
-        return valid;
+        return true;
     }
 }
