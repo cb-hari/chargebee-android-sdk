@@ -13,12 +13,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class ChoosePlan extends AppCompatActivity {
-    @InjectView(R.id.goods)
-    LinearLayout goods;
-    @InjectView(R.id.saas)
-    LinearLayout saas;
-    @InjectView(R.id.services)
-    LinearLayout services;
+    @InjectView(R.id.monthly)
+    LinearLayout monthly;
+    @InjectView(R.id.half_yearly)
+    LinearLayout halfYearly;
+    @InjectView(R.id.yearly)
+    LinearLayout yearly;
 
     private static final int REQUEST_SIGNUP = 0;
 
@@ -27,17 +27,17 @@ public class ChoosePlan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_plan);
         ButterKnife.inject(this);
-        goods.setOnClickListener(getOnClickListener("Physical Goods"));
-        saas.setOnClickListener(getOnClickListener("Saas"));
-        services.setOnClickListener(getOnClickListener("Services"));
+        monthly.setOnClickListener(getOnClickListener("monthly"));
+        halfYearly.setOnClickListener(getOnClickListener("half_yearly"));
+        yearly.setOnClickListener(getOnClickListener("yearly"));
     }
 
-    private OnClickListener getOnClickListener(final String businessType) {
+    private OnClickListener getOnClickListener(final String planId) {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), SignupActivity.class);
-                i.putExtra("business_type", businessType);
+                i.putExtra("plan_id", planId);
                 startActivityForResult(i, REQUEST_SIGNUP);
             }
         };
@@ -47,11 +47,8 @@ public class ChoosePlan extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
                 setResult(RESULT_OK, null);
-                this.finish();
+                finish();
             }
         }
     }

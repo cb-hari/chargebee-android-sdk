@@ -15,4 +15,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="domain">dubai-test</string>
+    <string name="api_key">test_rRubfcusj7MdOUMMd2AakeJwPckSgAbQS</string>
 </resources>

@@ -1,7 +1,9 @@
 package com.chargebee.android.cb_sdk;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,12 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.chargebee.android.sdk.Environment;
+import com.chargebee.android.sdk.Result;
+import com.chargebee.android.sdk.models.Subscription;
+import com.chargebee.android.sdk.models.enums.AutoCollection;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class LoginActivity extends AppCompatActivity {
     private static final int CHOOSE_PLAN = 0;
+    private ProgressDialog progress;
 
     @InjectView(R.id.input_email)
     EditText _emailText;
@@ -55,36 +62,19 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         _loginButton.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Logging in...");
-        progressDialog.show();
-
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
-
-        // TODO: Implement your own authentication logic here.
-//        ChargebeeUtil.createSubscription(email);
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 2000);
-
+        sendGetRequest(email, password);
     }
 
+    public void sendGetRequest(String email, String pwd) {
+        new GetClass(this).setEmail(email).setPwd(pwd).execute();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CHOOSE_PLAN) {
             if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                Toast.makeText(getApplicationContext(), "Signup success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Account created. Login Now.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -111,10 +101,61 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Enter valid email address", Toast.LENGTH_LONG).show();
             return false;
         }
-        if (password.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_LONG).show();
+        if (password == null || password.isEmpty()) {
+            Toast.makeText(getBaseContext(), "Please enter password", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (password.length() > 20) {
+            Toast.makeText(getBaseContext(), "Password cannot be more than 20 characters", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
+    }
+
+    private class GetClass extends AsyncTask<String, Void, Result> {
+        private final Context context;
+        private String email;
+        private String pwd;
+
+        public GetClass(Context c) {
+            this.context = c;
+        }
+
+        public GetClass setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public GetClass setPwd(String pwd) {
+            this.pwd = pwd;
+            return this;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progress = new ProgressDialog(this.context);
+            progress.setMessage("Logging in...");
+            progress.show();
+        }
+
+        @Override
+        protected Result doInBackground(String... params) {
+            try {
+                Environment.configure("dubai-test", "test_rRubfcusj7MdOUMMd2AakeJwPckSgAbQS");
+                //fetch customer with email and validate with pwd
+                final Result result = null;
+                return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            progress.dismiss();
+            onLoginSuccess();
+        }
+
     }
 }
