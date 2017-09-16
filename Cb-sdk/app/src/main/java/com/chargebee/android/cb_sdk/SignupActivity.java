@@ -137,7 +137,7 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         protected Result doInBackground(String... params) {
             try {
-                Environment.configure("dubai-test", "test_rRubfcusj7MdOUMMd2AakeJwPckSgAbQS");
+//                Environment.configure("dubai-test", "test_rRubfcusj7MdOUMMd2AakeJwPckSgAbQS");
                 //fetch customer with email and if present dont create sub
                 final Result result = Subscription.create()
                         .planId(planId)

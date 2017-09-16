@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
-
+        Environment.configure("dubai-test", "test_rRubfcusj7MdOUMMd2AakeJwPckSgAbQS");
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -141,7 +141,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Result doInBackground(String... params) {
             try {
-                Environment.configure("dubai-test", "test_rRubfcusj7MdOUMMd2AakeJwPckSgAbQS");
                 //fetch customer with email and validate with pwd
                 final Result result = null;
                 return result;
