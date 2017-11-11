@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.chargebee.android.sdk.Environment;
 import com.chargebee.android.sdk.Result;
 import com.chargebee.android.sdk.models.Subscription;
@@ -37,12 +38,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
-        Environment.configure("dubai-test", "test_rRubfcusj7MdOUMMd2AakeJwPckSgAbQS");
+        Environment.configure("hpv3-test", "test_E3WOdWcurmxofIsHQkxCRgZzQIb4cuXI0K");
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                login();
+//                login();
+                openWebview();
             }
         });
 
@@ -54,6 +56,12 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, CHOOSE_PLAN);
             }
         });
+    }
+
+    private void openWebview() {
+        Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
+        intent.putExtra("url","https://hpv3-test.chargebee.com/pages/v3/kRp7OgUggA9lNICtV48maiYa2ccjO2AW/cart");
+        startActivity(intent);
     }
 
     public void login() {
@@ -70,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
     public void sendGetRequest(String email, String pwd) {
         new GetClass(this).setEmail(email).setPwd(pwd).execute();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CHOOSE_PLAN) {
