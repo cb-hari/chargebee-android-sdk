@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void openWebview() {
         Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
-        intent.putExtra("url","https://hpv3-test.chargebee.com/pages/v3/kRp7OgUggA9lNICtV48maiYa2ccjO2AW/cart");
+        intent.putExtra("url","https://hpv3-test.chargebee.com/pages/v3/WfrTErHFcNKu7mMF2OgCyhVG26j7qlCH/cart");
         startActivity(intent);
     }
 
